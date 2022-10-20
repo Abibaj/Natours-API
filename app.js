@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/public/overview.html`));
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+  // console.log(req.headers);
   next();
 });
 
