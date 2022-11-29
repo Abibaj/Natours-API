@@ -72,6 +72,10 @@ const tourSchema = new mongoose.Schema(
       default: Date.now(),
       select: false,
     },
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
     startDates: [Date],
     startLocation: {
       // GeoJSON
@@ -99,12 +103,6 @@ const tourSchema = new mongoose.Schema(
       },
     ],
     guides: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-  },
-  {
-    secretTour: {
-      type: Boolean,
-      default: false,
-    },
   },
   {
     toJSON: { virtuals: true },
@@ -148,6 +146,6 @@ tourSchema.pre(/aggregate/, function (next) {
   this.pipeline().unshift({ match: { secretTour: { $ne: true } } });
   next();
 });
-const Tour = mongoose.model('Tour', tourSchema);
 
+const Tour = mongoose.model('Tour', tourSchema);
 module.exports = Tour;
