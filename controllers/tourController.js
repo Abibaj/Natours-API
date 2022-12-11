@@ -33,7 +33,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 ///// HANDLING A GET SPECIFIC TOUR REQUEST /////
 exports.getTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findById(req.params.id);
+  const tour = await Tour.findById(req.params.id).populate('reviews');
   if (!tour) return next(new AppError('No tour found with that ID', 404));
 
   res.status(200).json({
@@ -100,6 +100,7 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
     data: { stats },
   });
 });
+
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
   const year = req.params.year * 1;
   const plan = await Tour.aggregate([
