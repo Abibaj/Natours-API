@@ -7,16 +7,14 @@ const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
 
-// router.param('id', tourController.checkId);
-
 router.use('/:tourId/reviews', reviewRouter);
+
+router.route('/tour-stats').get(tourController.getTourStats);
+router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 
 router
   .route('/top-5-tours')
   .get(tourController.aliasTopTours, tourController.getAllTours);
-
-router.route('/tour-stats').get(tourController.getTourStats);
-router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 
 router
   .route('/')
@@ -32,7 +30,5 @@ router
     authController.restrictTo('admin', 'lead-guide'),
     tourController.deleteTour
   );
-
-// router.route('reviews/:id').get(reviewController.get)
 
 module.exports = router;
