@@ -1,4 +1,5 @@
 ///// THIRD-PARTY MODULES
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -20,6 +21,10 @@ const reviewRouter = require('./routes/reviewRoutes');
 
 ////
 const app = express();
+
+// SETTING UP PUG ENGINE
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 ///// GLOBAL MIDDLEWARES
 // Set security HTTP headers
@@ -61,12 +66,16 @@ app.use(
 );
 
 // Serving static files
-app.use(express.static(`${__dirname}/public/overview.html`));
+app.use(express.static(path.join(__dirname, 'public/overview.html')));
 
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
+});
+
+app.get('/', (req, res) => {
+  res.status(200).render('base');
 });
 
 app.use('/api/v1/tours', tourRouter);
