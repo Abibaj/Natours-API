@@ -14,7 +14,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
     tours,
   });
 
-  next(new AppError('Lets see what happens'));
+  // next(new AppError('Lets see what happens'));
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
@@ -28,7 +28,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
 
   // 3) Render that template using data from 1)
   res.status(200).render('tour', {
-    title: tour.name,
+    title: `${tour.name} tour`,
     tour,
   });
 
