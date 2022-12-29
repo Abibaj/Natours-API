@@ -1,8 +1,8 @@
 /* eslint-disable */
-// import axios from 'axios';
-// import { showAlert } from './alerts';
+import axios from 'axios';
+import { showAlert } from './alerts';
 
-const login = async (email, password) => {
+export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -24,7 +24,7 @@ const login = async (email, password) => {
   }
 };
 
-const logout = async () => {
+export const logout = async () => {
   try {
     const res = await axios({
       method: 'GET',
